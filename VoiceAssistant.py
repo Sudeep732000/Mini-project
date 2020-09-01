@@ -6,14 +6,9 @@ import webbrowser
 import os
 import random
 
-
-
-
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
-print(voices[0].id)
 engine.setProperty('voices', voices[0].id)
-
 
 def speak(audio):
     engine.say(audio)
@@ -21,20 +16,24 @@ def speak(audio):
 
 def wishMe():
     hour = int(datetime.datetime.now().hour)
+    speak("Loading Galaxy version 3.0")
     if hour>=0 and hour<12:
-        speak(" Good Morning!")
-    elif hour>=12 and hour<18:
-        speak(" Good Afternoon!")   
+        speak(" Hello Good Morning!")
+    elif hour>=12 and hour<15:
+        speak(" Hello Good Afternoon!")  
+    elif hour>=15 and hour<19:
+        speak(" Hello Good Evening!")     
     else: 
-        speak(" Good Evening!")  
-    speak('Hi , I am ULTRON your digital voice assistant, How may i help you?')
+        speak(" Hello Good Night!")  
+    speak('Hi , I am Galaxy Version 1your digital voice assistant, How may i help you?')
 
 def takeCommand():
     r = sr.Recognizer()
-    with sr.Microphone() as source:                                                                       
+    with sr.Microphone() as source:
+        speak("Tell me what can i do now..")                                                                       
         print("Listening...")
         r.pause_threshold =  1 
-        r.energy_threshold = 900
+        r.energy_threshold = 1000
         audio = r.listen(source)
     try:
         print('Recognizing....')
@@ -45,9 +44,6 @@ def takeCommand():
         print('Say that again please....,I cant Recognize you.. ')
         return "None"
     return query
-
-
-
 
 if __name__ == "__main__":
     wishMe()
@@ -73,6 +69,10 @@ if __name__ == "__main__":
         elif 'open linkedin' in query:
             webbrowser.open('www.linkedin.com') 
 
+        elif 'who is your master' in  query or 'who is your boss' in query:
+            speak("I was created by Sudeep Balagopal")
+            print("I was created by Sudeep Balagopal")    
+
         elif 'open whatsapp' in query:
             webbrowser.open('https://web.whatsapp.com/')    
 
@@ -91,7 +91,7 @@ if __name__ == "__main__":
             msg  = ['I am fine', 'Awesome', 'just doing my job','Nice!']
             speak(random.choice(msg))
         elif 'hello' in query:
-            speak('HI I am ULTRON , what can I do for you')  
+            speak('HI! I am Galaxy , what can I do for you')  
         elif 'bye' in query or 'stop' in query:
             speak('Bye , have a good day')
             break      
